@@ -32,7 +32,10 @@ namespace UIN.Library.Api.Controllers
         [HttpPost]
         public IActionResult Create(Livre livre)
         {
+            livre.Id = Guid.NewGuid(); // force un nouvel ID
+
             livres.Add(livre);
+
             return Ok(livre);
         }
 

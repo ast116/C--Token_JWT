@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 namespace UIN.Library.Api
 {
     public class Program
@@ -22,7 +26,24 @@ namespace UIN.Library.Api
                 app.UseSwaggerUI();
             }
 
+            var key = Encoding.UTF8.GetBytes("SUPER_SECRET_KEY_123456");
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key)
+                    };
+                });
+
             app.UseHttpsRedirection();
+
+            app.UseAuthentication(); // 🔥 IMPORTANT
 
             app.UseAuthorization();
 
