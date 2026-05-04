@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="UIN.Library.Api/UIN.Library.Api.csproj" />
+  <Project Path="UIN.Library.WPF/UIN.Library.WPF.csproj" />
+</Solution>
