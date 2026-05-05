@@ -37,7 +37,22 @@ namespace UIN.Library.WPF.Services
             _httpClient.DefaultRequestHeaders.Authorization =
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", AccessToken);
 
-            return await _httpClient.GetFromJsonAsync<List<Livre>>("api/books");
+            var response = await _httpClient.GetAsync("api/books");
+
+            // 🔥 LOG pour debug
+            Console.WriteLine($"Status code: {response.StatusCode}");
+
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                throw new Exception("Token expiré !");
+            }
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Erreur API");
+            }
+
+            return await response.Content.ReadFromJsonAsync<List<Livre>>();
         }
     }
 
@@ -51,5 +66,12 @@ namespace UIN.Library.WPF.Services
     {
         public string titre { get; set; }
         public string auteur { get; set; }
+
+        public override string ToString()
+        {
+            return $"{titre} - {auteur}";
+        }
+
     }
+
 }
