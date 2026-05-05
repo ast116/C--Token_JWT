@@ -5,23 +5,49 @@
         Height="600"
         Width="800"
         WindowStartupLocation="CenterScreen">
-        
-    <StackPanel Margin="20">
 
-        <Label Content="Username"/>
-        <TextBox x:Name="UsernameBox" Margin="0,5,0,10"/>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-        <Label Content="Role (admin/editor/reader)"/>
-        <TextBox x:Name="RoleBox" Margin="0,5,0,10"/>
+        <!-- 🔐 AUTH -->
+        <StackPanel Grid.Row="0">
+            <Label Content="Username"/>
+            <TextBox x:Name="UsernameBox" Margin="0,5,0,10"/>
 
-        <Button Content="Login" Click="Login_Click" Margin="0,10,0,10"/>
+            <Label Content="Role (admin/editor/reader)"/>
+            <TextBox x:Name="RoleBox" Margin="0,5,0,10"/>
 
-        <Button Content="Load Books" Click="LoadBooks_Click"/>
+            <Button Content="Login" Click="Login_Click" Margin="0,10,0,10"/>
+        </StackPanel>
 
-        <ListBox x:Name="BooksList" Margin="0,10,0,0"/>
+        <!-- 🎯 ACTIONS -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,10">
+            <Button Content="Load Books" Click="LoadBooks_Click" Margin="0,0,10,0"/>
+            <Button x:Name="AddButton" Content="Add Book" Margin="0,0,10,0"/>
+            <Button x:Name="DeleteButton" Content="Delete Book" Margin="0,0,10,0"/>
+            <Button Content="Logout" Click="Logout_Click"/>
+        </StackPanel>
 
-        <Button Content="Logout" Click="Logout_Click" Margin="0,10,0,10"/>
+        <!-- 📚 LIVRES -->
+        <ListBox Grid.Row="2" x:Name="BooksList" Margin="0,10,0,10"/>
 
-    </StackPanel>
+        <!-- 🧾 JWT -->
+        <StackPanel Grid.Row="3">
+            <Label Content="JWT Header"/>
+            <TextBox x:Name="HeaderBox" Height="60" TextWrapping="Wrap"/>
+
+            <Label Content="JWT Payload"/>
+            <TextBox x:Name="PayloadBox" Height="80" TextWrapping="Wrap"/>
+
+            <Label Content="JWT Signature"/>
+            <TextBox x:Name="SignatureBox" Height="60" TextWrapping="Wrap"/>
+        </StackPanel>
+
+    </Grid>
 
 </Window>

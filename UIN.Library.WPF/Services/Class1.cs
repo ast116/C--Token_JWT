@@ -9,6 +9,7 @@ namespace UIN.Library.WPF.Services
 
         public string AccessToken { get; set; }
         public string RefreshToken { get; set; }
+        public string Role { get; set; }
 
         public ApiService()
         {
@@ -28,6 +29,7 @@ namespace UIN.Library.WPF.Services
 
             AccessToken = result.accessToken;
             RefreshToken = result.refreshToken;
+            Role = role;
 
             return true;
         }
